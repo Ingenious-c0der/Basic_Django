@@ -38,8 +38,10 @@
                 <thead>
                     <tr>
                         <th>SHIPPING_ADDRESS</th>
+                        <th>PRODUCT_TITLE</th>
                         <th>ORDERED BY</th>
                         <th>CORDER STATUS </th>
+
                         
                     </tr>
                 </thead>
@@ -48,6 +50,7 @@
                     {% for order in allorders %}
                         <tr>
                         <td>{{ order.shipping_address }}</td>
+                        <td>{{ order.product.title}}</td>
                         <td>{{ order.ordered_by }}</td>
                         <td>{{ order.order_status }}</td>
 
