@@ -126,7 +126,9 @@ class SellerAdminView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['allproducts'] = Product.objects.filter(seller = self.request.user.seller)
+    
         context['allorders'] = Order.objects.filter(seller = self.request.user.seller)
+
         return context
 
 class SearchView(TemplateView):
@@ -303,13 +305,17 @@ class CheckOutView(CreateView):
 
     def form_valid(self , form):
         cart_id = self.request.session.get("cart_id")
+        cart_products = CartProduct.objects.filter(cart = cart_id)
         if cart_id:
-            cart_obj = Cart.objects.get(id = cart_id)
-            form.instance.cart = cart_obj
-            form.instance.subtotal = cart_obj.total
-            form.instance.discount = 0
-            form.instance.total = cart_obj.total
-            form.instance.order_status = 'Order Received'
+            for product in cart_products:
+                form.instance.cart = Cart.objects.get(id = cart_id)
+                form.instance.seller = product.product.seller
+                form.instance.subtotal = product.product.selling_price
+                form.instance.total = product.product.selling_price         
+                form.instance.discount = 0
+                
+                form.instance.order_status = 'Order Received'
+                
             del self.request.session['cart_id']
         else:
             return redirect("ecomapp:home")

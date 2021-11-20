@@ -44,6 +44,7 @@ class Product(models.Model):
     view_count = models.PositiveIntegerField(default=0)
     id = models.PositiveBigIntegerField(primary_key=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default = 1)
+    
     def __str__(self):
         return self.title
 
@@ -90,6 +91,7 @@ class Order(models.Model):
     order_status = models.CharField(max_length=50 , choices=ORDER_STATUS)
     created_at = models.DateTimeField(auto_now_add=True)
     seller = models.ForeignKey(Seller ,on_delete=models.CASCADE,default = 1)
+    
 
     def __str__(self):
         return "Order : " + str(self.id)

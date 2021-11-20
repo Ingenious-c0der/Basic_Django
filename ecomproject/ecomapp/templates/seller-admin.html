@@ -31,15 +31,32 @@
         {% else %}
             <h2>You don't have any products yet...</h2>
         {% endif %}
-        <tbody>
-            {% for order in allorders %}
-                <tr>
-                    <td>{{ order.ordered_by }}</a></td>
-                    <td>{{ order.shipping_address}}</td>
+        {% if allproducts %}
+    
+    <h2>The Orders Your Shop has Received</h2>
+            <table class="table is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>SHIPPING_ADDRESS</th>
+                        <th>ORDERED BY</th>
+                        <th>CORDER STATUS </th>
+                        
+                    </tr>
+                </thead>
 
-                    
-                </tr>
-            {% endfor %}
-        </tbody>
-    </div>
+                <tbody>
+                    {% for order in allorders %}
+                        <tr>
+                        <td>{{ order.shipping_address }}</td>
+                        <td>{{ order.ordered_by }}</td>
+                        <td>{{ order.order_status }}</td>
+
+                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h2>Your shop hasn't recieved any orders yet...</h2>
+        {% endif %}
 {% endblock %}

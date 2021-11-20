@@ -43,7 +43,7 @@
                     {% endfor %}
                 </tbody>
 
-                {% if cart.cartproduct_set.all %}
+                {% if cart.cartproduct_set.all and request.user.customer or request.user.seller%}
                 <a href="{% url 'ecomapp:checkout' %}">
                 <button class="btn btn-info">Proceed to buy</button>
                 </a>
